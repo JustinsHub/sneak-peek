@@ -1,1 +1,3 @@
-# sneak-peek
+# sneak-peek-backend
+
+- Build the structure
