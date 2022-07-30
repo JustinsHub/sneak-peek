@@ -1,9 +1,3 @@
-//TODO: 
-//Prisma db and connect
-//Create users only for now
-//Test
-//try out passport api or oauth for users?
-
 class ExpressError extends Error {
     // message: string
     status: number
