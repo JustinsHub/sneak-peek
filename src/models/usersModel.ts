@@ -16,7 +16,7 @@ class User {
         return getAllUsers ? getAllUsers : new ErrorBadRequest
     }
 
-    static async getSingleUser(id:number){
+    static async getSingleUser(id: number){
         const getSingleUser = await users.findUnique({
             where: {
                 id
@@ -33,6 +33,30 @@ class User {
     }
 
     //update
+    //json schema? or some sort of validation
+    static async updateUser(id:number, email: string){
+        const updateUser = await users.update({
+            data: {
+                email
+            },
+            where: {
+                id
+            },
+            select: {
+                email: true,
+            }
+        })
+        return updateUser ? updateUser : new ErrorBadRequest
+    }
+
+    static async deleteUser(id: number){
+        const deleteUser = await users.delete({
+            where: {
+                id
+            }
+        })
+        return deleteUser ? deleteUser : new ErrorBadRequest
+    }
     //delete
 }
 
