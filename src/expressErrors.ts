@@ -1,3 +1,10 @@
+//TODO: 
+//Prisma db and connect (checked)
+//Create queries models/routes
+//Try storing JWT in cookies and httpOnly
+//Test
+//try out passport api or oauth for users?
+
 class ExpressError extends Error {
     // message: string
     status: number
