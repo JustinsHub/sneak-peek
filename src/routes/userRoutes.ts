@@ -13,7 +13,7 @@ router.get('/users', async(req: Request, res: Response, next: NextFunction) => {
     }
 })
 
-router.get('/user/:id', async(req: Request, res: Response, next: NextFunction) => {
+router.get('/users/:id', async(req: Request, res: Response, next: NextFunction) => {
     try {
         const { id } = req.params
         const getSingleUser = await User.getSingleUser(+id)

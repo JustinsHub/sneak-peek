@@ -11,12 +11,13 @@ datasource db {
 }
 
 model Users {
-  id         Int      @id @default(autoincrement())
-  username   String   @unique
+  id         Int       @id @default(autoincrement())
+  username   String    @unique
   password   String
-  email      String   @unique
+  email      String    @unique
   profile    Profile?
-  created_on DateTime @default(now())
+  created_on DateTime  @default(now())
+  Address    Address[]
 
   @@map("users")
 }
@@ -28,4 +29,17 @@ model Profile {
 
   @@id([user_id])
   @@map("profile")
+}
+
+model Address {
+  user    Users  @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id Int
+  address String
+  city    String
+  state   String
+  country String //have this set up with default to US only for now?
+  zipcode Int
+
+  @@id([user_id])
+  @@map("address")
 }

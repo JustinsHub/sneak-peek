@@ -57,7 +57,6 @@ class User {
         })
         return deleteUser ? deleteUser : new ErrorBadRequest
     }
-    //delete
 }
 
 export default User
