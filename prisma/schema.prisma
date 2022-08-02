@@ -25,6 +25,7 @@ model Users {
 model Profile {
   user    Users  @relation(fields: [user_id], references: [id], onDelete: Cascade)
   user_id Int
+  title   String
   bio     String
 
   @@id([user_id])
@@ -43,3 +44,7 @@ model Address {
   @@id([user_id])
   @@map("address")
 }
+
+//add messages future feature
+//add purchases and top buyer (whoever buys the most from the ecommerce will be on top list (tier discount?))
+//apply leaderboard as part of purchases?
