@@ -11,13 +11,13 @@ datasource db {
 }
 
 model Users {
-  id         Int       @id @default(autoincrement())
-  username   String    @unique
+  id         Int      @id @default(autoincrement())
+  username   String   @unique
   password   String
-  email      String    @unique
+  email      String   @unique
   profile    Profile?
-  created_on DateTime  @default(now())
-  Address    Address[]
+  created_on DateTime @default(now())
+  Address    Address?
 
   @@map("users")
 }
