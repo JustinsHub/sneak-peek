@@ -6,7 +6,8 @@ const { users } = new PrismaClient()
 
 class AuthUser {
     static async signUpUser(username: string, password: string, email: string) {
-        //implement username and email validation
+        //implement username and email validation (json schema on routes?)
+
         
         const hashPassword = await bcrypt.hash(password, +BCRYPT_WORK_FACTOR)
         const signUpUser = await users.create({
