@@ -3,7 +3,7 @@ dotenv.config()
 
 const PORT = process.env.PORT
 const BCRYPT_WORK_FACTOR = process.env.BCRYPTO_WORK_FACTOR || 10
-const SECRET_KEY = process.env.SECRET_KEY
+const SECRET_KEY = process.env.SECRET_KEY || "Yolo"
 
 export {
     PORT,
