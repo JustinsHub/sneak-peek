@@ -2,6 +2,7 @@ import { PrismaClient } from ".prisma/client";
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { BCRYPT_WORK_FACTOR, SECRET_KEY } from "../config";
+import { ErrorBadRequest } from "../expressErrors";
 
 const { users } = new PrismaClient()
 
@@ -29,19 +30,9 @@ class AuthUser {
     }
 
     static async loginUser(username: string, password: string, email: string) {
-        //make it so you can login with email or username
-        //how to login with email? 
-        //one way could be having username || email
-
-        //compare hash password
-        //createToken by email if email
-        //if compared > createToken
-
-
         //implement oAuth/passport.js future feature after req.cookies with jwt is working.
 
-        //ERROR HANDLE
-        const loginUser = await users.findUnique({
+        const loginByUsername = await users.findUnique({
             where: {
                 username
             },
@@ -51,11 +42,25 @@ class AuthUser {
                 password: true
             }
         })
-        
-        const userAuth = await bcrypt.compare(password, loginUser?.password as string)
 
-        if(userAuth){
-            const loginToken = createToken(loginUser?.id as number)
+        const loginByEmail = await users.findUnique({
+            where: {
+                email
+            },
+            select: {
+                id: true,
+                email: true,
+                password: true,
+            }
+        })
+        
+        if(!loginByUsername?.username || !loginByUsername?.password) throw new ErrorBadRequest('Username or password is incorrect.')
+        if(!loginByEmail?.email || !loginByEmail?.password) throw new ErrorBadRequest('Username email or password is incorrect.')
+        
+        const userAuth = await bcrypt.compare(password, loginByUsername?.password as string)
+
+        if(userAuth || loginByEmail){
+            const loginToken = createToken(loginByUsername?.id as number)
             return {
                 accessToken: loginToken
             }
