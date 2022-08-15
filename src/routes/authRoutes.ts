@@ -8,7 +8,7 @@ router.post('/signup', async(req: Request, res: Response, next: NextFunction) =>
     
     try {
         const signUpUser = await AuthUser.signUpUser(username, password, email)
-        const signUpCookie = req.cookies('authCookie', signUpUser, {
+        res.cookie('authCookie', signUpUser, {
         httpOnly: true,
         })
         return res.json('Successfully signed up!')
@@ -22,7 +22,7 @@ router.post('/login', async(req: Request, res: Response, next: NextFunction) => 
     
     try {
         const loginUser = AuthUser.loginUser(username, password, email)
-        const loginCookie = req.cookies('authCookie', loginUser, {
+        res.cookie('authCookie', loginUser, {
         httpOnly: true,
         })
     } catch (error) {

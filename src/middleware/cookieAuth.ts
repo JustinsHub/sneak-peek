@@ -14,13 +14,15 @@ declare global {
   }
 
 const authenticateCookie = (req: Request, res:Response, next: NextFunction) => {
-    const token = req.cookies.token
+    const token = req.cookies.authCookie.accessToken
     try { 
         const payload = jwt.verify(token, SECRET_KEY)
+        console.log(payload)
         console.log('Valid token.')
         req.user = payload
         return next()
     } catch (error) {
+        //res.clearCookie
         console.log('Invalid Token.')
         return next()
     }
